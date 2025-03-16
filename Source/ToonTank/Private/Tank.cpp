@@ -24,6 +24,13 @@ void ATank::BeginPlay()
     }
 }
 
+void ATank::Tick(float DeltaTime)
+{
+    Super::Tick(DeltaTime);
+
+    LookAtMouse();
+}
+
 void ATank::SetupPlayerInputComponent(UInputComponent *PlayerInputComponent)
 {
     Super::SetupPlayerInputComponent(PlayerInputComponent);
@@ -32,8 +39,8 @@ void ATank::SetupPlayerInputComponent(UInputComponent *PlayerInputComponent)
     if (UEnhancedInputComponent *EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
     {
         EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ATank::Move);
-        EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ATank::Look);
         EnhancedInputComponent->BindAction(RotateAction, ETriggerEvent::Triggered, this, &ATank::Rotate);
+        EnhancedInputComponent->BindAction(ShootAction, ETriggerEvent::Started, this, &ATank::Shoot);
     }
 }
 
@@ -47,13 +54,6 @@ void ATank::Move(const FInputActionValue &Value)
     AddActorWorldOffset(Movement, true);
 }
 
-void ATank::Look(const FInputActionValue &Value)
-{
-    // Get the input vector (X = Yaw, Y = Pitch)
-    FVector2D LookVector = Value.Get<FVector2D>();
-    UE_LOG(LogTemp, Warning, TEXT("Look: %s"), *LookVector.ToString());
-}
-
 void ATank::Rotate(const FInputActionValue &Value)
 {
     float AxisValue = Value.Get<float>();
@@ -62,4 +62,23 @@ void ATank::Rotate(const FInputActionValue &Value)
     float DeltaTime = GetWorld()->GetDeltaSeconds();
     FRotator Rotation = FRotator(0.f, DeltaTime * RotateSpeed * AxisValue, 0.f);
     AddActorWorldRotation(Rotation, true);
+}
+
+void ATank::Shoot(const FInputActionValue &Value)
+{
+    UE_LOG(LogTemp, Warning, TEXT("Shoot: %d"), Value.Get<bool>());
+}
+
+void ATank::LookAtMouse()
+{
+    if (APlayerController *PlayerController = Cast<APlayerController>(GetController()))
+    {
+        FHitResult MouseHitResult;
+        PlayerController->GetHitResultUnderCursor(ECC_Visibility, false, MouseHitResult);
+        LookAt(MouseHitResult.bBlockingHit ? MouseHitResult.ImpactPoint : MouseHitResult.TraceEnd);
+        DrawDebugSphere(GetWorld(), MouseHitResult.ImpactPoint, 5.f, 12, FColor::Red, false, 3.f);
+
+        // UE_LOG(LogTemp, Warning, TEXT("MouseHitResult: %d %f %s %s"), MouseHitResult.bBlockingHit, MouseHitResult.Distance, *MouseHitResult.TraceEnd.ToString(),
+        //        *MouseHitResult.ImpactPoint.ToString());
+    }
 }

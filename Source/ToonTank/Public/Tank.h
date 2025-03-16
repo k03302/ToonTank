@@ -20,6 +20,7 @@ public:
 
 protected:
     virtual void BeginPlay() override;
+    virtual void Tick(float DeltaTime) override;
 
 public:
     virtual void SetupPlayerInputComponent(UInputComponent *PlayerInputComponent) override;
@@ -35,12 +36,12 @@ private:
     class UInputAction *RotateAction;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input", meta = (AllowPrivateAccess = "true"))
-    class UInputAction *LookAction;
+    class UInputAction *ShootAction;
 
-    // Movement and Look functions
     void Move(const FInputActionValue &Value);
     void Rotate(const FInputActionValue &Value);
-    void Look(const FInputActionValue &Value);
+    void Shoot(const FInputActionValue &Value);
+    void LookAtMouse();
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement", meta = (AllowPrivateAccess = "true"))
     float MovementSpeed = 400.f;
