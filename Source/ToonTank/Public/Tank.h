@@ -41,4 +41,10 @@ private:
     void Move(const FInputActionValue &Value);
     void Rotate(const FInputActionValue &Value);
     void Look(const FInputActionValue &Value);
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement", meta = (AllowPrivateAccess = "true"))
+    float MovementSpeed = 100.f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement", meta = (AllowPrivateAccess = "true"))
+    float RotateSpeed = 100.f;
 };
