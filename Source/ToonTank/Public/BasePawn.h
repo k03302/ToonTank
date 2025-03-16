@@ -28,6 +28,8 @@ public:
 
     void LookAt(const FVector &Target);
 
+    void Shoot();
+
 private:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Base Pawn", meta = (AllowPrivateAccess = true))
     class UCapsuleComponent *CapsuleComponent;

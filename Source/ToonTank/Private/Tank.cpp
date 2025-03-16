@@ -40,7 +40,7 @@ void ATank::SetupPlayerInputComponent(UInputComponent *PlayerInputComponent)
     {
         EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ATank::Move);
         EnhancedInputComponent->BindAction(RotateAction, ETriggerEvent::Triggered, this, &ATank::Rotate);
-        EnhancedInputComponent->BindAction(ShootAction, ETriggerEvent::Started, this, &ATank::Shoot);
+        EnhancedInputComponent->BindAction(ShootAction, ETriggerEvent::Started, this, &Super::Shoot);
     }
 }
 
@@ -62,11 +62,6 @@ void ATank::Rotate(const FInputActionValue &Value)
     float DeltaTime = GetWorld()->GetDeltaSeconds();
     FRotator Rotation = FRotator(0.f, DeltaTime * RotateSpeed * AxisValue, 0.f);
     AddActorWorldRotation(Rotation, true);
-}
-
-void ATank::Shoot(const FInputActionValue &Value)
-{
-    UE_LOG(LogTemp, Warning, TEXT("Shoot: %d"), Value.Get<bool>());
 }
 
 void ATank::LookAtMouse()

@@ -40,7 +40,6 @@ private:
 
     void Move(const FInputActionValue &Value);
     void Rotate(const FInputActionValue &Value);
-    void Shoot(const FInputActionValue &Value);
     void LookAtMouse();
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Movement", meta = (AllowPrivateAccess = "true"))

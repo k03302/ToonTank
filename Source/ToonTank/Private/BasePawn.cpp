@@ -47,3 +47,8 @@ void ABasePawn::LookAt(const FVector &Target)
 
     TurretMesh->SetWorldRotation(FMath::RInterpTo(TurretMesh->GetComponentRotation(), LookRotation, GetWorld()->GetDeltaSeconds(), 2.f));
 }
+
+void ABasePawn::Shoot()
+{
+    UE_LOG(LogTemp, Warning, TEXT("Shoot"));
+}
