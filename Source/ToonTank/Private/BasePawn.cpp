@@ -17,8 +17,6 @@ ABasePawn::ABasePawn()
 
     TurretMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("TurretMesh"));
     TurretMesh->SetupAttachment(BaseMesh);
-
-    
 }
 
 // Called when the game starts or when spawned
@@ -37,4 +35,14 @@ void ABasePawn::Tick(float DeltaTime)
 void ABasePawn::SetupPlayerInputComponent(UInputComponent *PlayerInputComponent)
 {
     Super::SetupPlayerInputComponent(PlayerInputComponent);
+}
+
+void ABasePawn::LookAt(const FVector &Target)
+{
+    FVector LookDirection = Target - GetActorLocation();
+    FRotator LookRotation = LookDirection.Rotation();
+    LookRotation.Roll = 0.f;
+    LookRotation.Pitch = 0.f;
+
+    TurretMesh->SetWorldRotation(FMath::RInterpTo(TurretMesh->GetComponentRotation(), LookRotation, GetWorld()->GetDeltaSeconds(), 2.f));
 }

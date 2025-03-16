@@ -26,6 +26,8 @@ public:
     // Called to bind functionality to input
     virtual void SetupPlayerInputComponent(class UInputComponent *PlayerInputComponent) override;
 
+    void LookAt(const FVector &Target);
+
 private:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Base Pawn", meta = (AllowPrivateAccess = true))
     class UCapsuleComponent *CapsuleComponent;
