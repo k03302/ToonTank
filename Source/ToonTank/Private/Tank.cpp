@@ -41,6 +41,10 @@ void ATank::Move(const FInputActionValue &Value)
 {
     float AxisValue = Value.Get<float>();
     UE_LOG(LogTemp, Warning, TEXT("Move: %f"), AxisValue);
+
+    float DeltaTime = GetWorld()->GetDeltaSeconds();
+    FVector Movement = GetActorForwardVector() * AxisValue * MovementSpeed * DeltaTime;
+    AddActorWorldOffset(Movement, true);
 }
 
 void ATank::Look(const FInputActionValue &Value)
@@ -54,4 +58,8 @@ void ATank::Rotate(const FInputActionValue &Value)
 {
     float AxisValue = Value.Get<float>();
     UE_LOG(LogTemp, Warning, TEXT("Rotate: %f"), AxisValue);
+
+    float DeltaTime = GetWorld()->GetDeltaSeconds();
+    FRotator Rotation = FRotator(0.f, DeltaTime * RotateSpeed * AxisValue, 0.f);
+    AddActorWorldRotation(Rotation, true);
 }
