@@ -33,19 +33,25 @@ void ATank::SetupPlayerInputComponent(UInputComponent *PlayerInputComponent)
     {
         EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ATank::Move);
         EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ATank::Look);
+        EnhancedInputComponent->BindAction(RotateAction, ETriggerEvent::Triggered, this, &ATank::Rotate);
     }
 }
 
 void ATank::Move(const FInputActionValue &Value)
 {
+    float AxisValue = Value.Get<float>();
+    UE_LOG(LogTemp, Warning, TEXT("Move: %f"), AxisValue);
 }
 
 void ATank::Look(const FInputActionValue &Value)
 {
     // Get the input vector (X = Yaw, Y = Pitch)
     FVector2D LookVector = Value.Get<FVector2D>();
+    UE_LOG(LogTemp, Warning, TEXT("Look: %s"), *LookVector.ToString());
 }
 
 void ATank::Rotate(const FInputActionValue &Value)
 {
+    float AxisValue = Value.Get<float>();
+    UE_LOG(LogTemp, Warning, TEXT("Rotate: %f"), AxisValue);
 }
