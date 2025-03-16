@@ -40,9 +40,10 @@ void ABasePawn::SetupPlayerInputComponent(UInputComponent *PlayerInputComponent)
 void ABasePawn::LookAt(const FVector &Target)
 {
     FVector LookDirection = Target - GetActorLocation();
+    LookDirection.Z = 0.f;
     FRotator LookRotation = LookDirection.Rotation();
-    LookRotation.Roll = 0.f;
-    LookRotation.Pitch = 0.f;
+    // LookRotation.Roll = 0.f;
+    // LookRotation.Pitch = 0.f;
 
     TurretMesh->SetWorldRotation(FMath::RInterpTo(TurretMesh->GetComponentRotation(), LookRotation, GetWorld()->GetDeltaSeconds(), 2.f));
 }
