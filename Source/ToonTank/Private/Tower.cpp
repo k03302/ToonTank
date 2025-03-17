@@ -2,6 +2,8 @@
 
 #include "Tower.h"
 #include "Tank.h"
+#include "Kismet/GameplayStatics.h"
+#include "TimerManager.h"
 
 ATower::ATower()
 {
@@ -22,6 +24,7 @@ void ATower::Tick(float DeltaTime)
     if (TargetInRange() && TargetVisible())
     {
         LookAt(Tank->GetActorLocation());
+        CheckShootCondition();
     }
 }
 
@@ -30,10 +33,7 @@ bool ATower::TargetInRange()
     if (Tank)
     {
         float DistanceSqr = FVector::DistSquared2D(Tank->GetActorLocation(), GetActorLocation());
-        if (DistanceSqr < FireRange * FireRange)
-        {
-            return true;
-        }
+        return DistanceSqr < FireRange * FireRange;
     }
     return false;
 }
@@ -49,10 +49,17 @@ bool ATower::TargetVisible()
             Tank->GetActorLocation(),
             ECollisionChannel::ECC_Visibility);
 
-        if (HitResult.bBlockingHit && HitResult.GetActor() == Tank)
-        {
-            return true;
-        }
+        return HitResult.bBlockingHit && HitResult.GetActor() == Tank;
     }
     return false;
+}
+
+void ATower::CheckShootCondition()
+{
+
+    if (Tank && TargetInRange() && TargetVisible() && GetWorld()->GetTimeSeconds() - LastFireTime > FireRate)
+    {
+        Shoot();
+        LastFireTime = GetWorld()->GetTimeSeconds();
+    }
 }
