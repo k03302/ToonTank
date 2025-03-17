@@ -7,11 +7,26 @@
 #include "Tower.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class TOONTANK_API ATower : public ABasePawn
 {
-	GENERATED_BODY()
-	
+    GENERATED_BODY()
+private:
+    class ATank *Tank;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Combat", meta = (AllowPrivateAccess = "true"))
+    float FireRange = 1000.f;
+
+    bool bCanFire = true;
+
+public:
+    ATower();
+    bool TargetInRange();
+    bool TargetVisible();
+
+protected:
+    virtual void BeginPlay() override;
+    virtual void Tick(float DeltaTime) override;
 };
