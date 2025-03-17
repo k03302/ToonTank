@@ -54,4 +54,6 @@ void ABasePawn::LookAt(const FVector &Target)
 void ABasePawn::Shoot()
 {
     UE_LOG(LogTemp, Warning, TEXT("Shoot"));
+    if (ProjectileClass && ProjectileSpawnPoint)
+        GetWorld()->SpawnActor<AActor>(ProjectileClass, ProjectileSpawnPoint->GetComponentLocation(), ProjectileSpawnPoint->GetComponentRotation());
 }

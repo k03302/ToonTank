@@ -40,6 +40,9 @@ private:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Base Pawn", meta = (AllowPrivateAccess = true))
     UStaticMeshComponent *TurretMesh;
 
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Combat", meta = (AllowPrivateAccess = true))
+    TSubclassOf<AActor> ProjectileClass;
+
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Base Pawn", meta = (AllowPrivateAccess = true))
     USceneComponent *ProjectileSpawnPoint;
 };
