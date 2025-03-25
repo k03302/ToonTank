@@ -1,7 +1,9 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Projectile.h"
+#include "BasePawn.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 AProjectile::AProjectile()
@@ -28,5 +30,17 @@ void AProjectile::Tick(float DeltaTime)
 
 void AProjectile::OnHit(UPrimitiveComponent *HitComponent, AActor *OtherActor, UPrimitiveComponent *OtherComp, FVector NormalImpulse, const FHitResult &Hit)
 {
-    UE_LOG(LogTemp, Warning, TEXT("OnHit"));
+    if (!OtherActor || OtherActor == this || OtherActor == GetOwner())
+        return;
+
+    if (ABasePawn *BasePawnHitted = Cast<ABasePawn>(OtherActor))
+    {
+        UE_LOG(LogTemp, Warning, TEXT("projectile from %s hitted %s"), *GetName(), *BasePawnHitted->GetName());
+
+        AController *Controller = GetInstigatorController();
+
+        UGameplayStatics::ApplyDamage(BasePawnHitted, 20.f, Controller, this, TSubclassOf<UDamageType>(UDamageType::StaticClass()));
+    }
+
+    Destroy();
 }
