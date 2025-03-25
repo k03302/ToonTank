@@ -63,3 +63,8 @@ void ATower::CheckShootCondition()
         LastFireTime = GetWorld()->GetTimeSeconds();
     }
 }
+
+void ATower::HandleDestruction()
+{
+    Super::HandleDestruction();
+}

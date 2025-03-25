@@ -57,3 +57,7 @@ void ABasePawn::Shoot()
     if (ProjectileClass && ProjectileSpawnPoint)
         GetWorld()->SpawnActor<AActor>(ProjectileClass, ProjectileSpawnPoint->GetComponentLocation(), ProjectileSpawnPoint->GetComponentRotation());
 }
+
+void ABasePawn::HandleDestruction()
+{
+}

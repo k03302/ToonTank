@@ -77,3 +77,8 @@ void ATank::LookAtMouse()
         //        *MouseHitResult.ImpactPoint.ToString());
     }
 }
+
+void ATank::HandleDestruction()
+{
+    Super::HandleDestruction();
+}

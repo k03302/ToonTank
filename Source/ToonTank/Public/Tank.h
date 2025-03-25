@@ -25,6 +25,8 @@ protected:
 public:
     virtual void SetupPlayerInputComponent(UInputComponent *PlayerInputComponent) override;
 
+    virtual void HandleDestruction() override;
+
 private:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input", meta = (AllowPrivateAccess = "true"))
     class UInputMappingContext *InputMappingContext;

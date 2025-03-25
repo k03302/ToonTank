@@ -30,6 +30,8 @@ public:
 
     void Shoot();
 
+    virtual void HandleDestruction();
+
 private:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Base Pawn", meta = (AllowPrivateAccess = true))
     class UCapsuleComponent *CapsuleComponent;

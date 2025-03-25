@@ -16,6 +16,7 @@ class TOONTANK_API ATower : public ABasePawn
 
 public:
     ATower();
+    virtual void HandleDestruction() override;
 
 protected:
     virtual void BeginPlay() override;
