@@ -14,8 +14,10 @@ class TOONTANK_API AToonTanksGameMode : public AGameModeBase
 {
     GENERATED_BODY()
 
-private:
+public:
     bool ActorDied(AActor *DeadActor);
+
+private:
     class ATank *PlayerTank;
 
 protected:
