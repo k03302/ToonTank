@@ -4,16 +4,16 @@
 #include "Kismet/GameplayStatics.h"
 #include "Tank.h"
 #include "Tower.h"
-#include "GameFramework/PlayerController.h"
+#include "ToonTanksPlayerController.h"
 
 bool AToonTanksGameMode::ActorDied(AActor *DeadActor)
 {
     if (ATank *Tank = Cast<ATank>(DeadActor))
     {
         Tank->HandleDestruction();
-        if (APlayerController *PlayerController = Cast<APlayerController>(Tank->GetController()))
+        if (AToonTanksPlayerController *PlayerController = Cast<AToonTanksPlayerController>(Tank->GetController()))
         {
-            Tank->DisableInput(PlayerController);
+            PlayerController->SetPlayerEnabledState(false);
         }
         return true;
     }
