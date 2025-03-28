@@ -60,4 +60,6 @@ void ABasePawn::Shoot()
 
 void ABasePawn::HandleDestruction()
 {
+    SetActorHiddenInGame(true);
+    SetActorTickEnabled(false);
 }
