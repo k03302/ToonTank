@@ -15,11 +15,15 @@ bool AToonTanksGameMode::ActorDied(AActor *DeadActor)
         {
             Tank->DisableInput(PlayerController);
         }
+        return true;
     }
     else if (ATower *Tower = Cast<ATower>(DeadActor))
     {
         Tower->HandleDestruction();
+        return true;
     }
+
+    return false;
 }
 
 void AToonTanksGameMode::BeginPlay()
