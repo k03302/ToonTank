@@ -20,6 +20,8 @@ public:
 private:
     class ATank *PlayerTank;
 
+    float StartDelay = 3.f;
+
 protected:
     virtual void BeginPlay() override;
 };
