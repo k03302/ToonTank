@@ -4,13 +4,15 @@
 
 void AToonTanksPlayerController::SetPlayerEnabledState(bool bPlayerEnabled)
 {
+    APawn *PlayerPawn = GetPawn();
     if (bPlayerEnabled)
     {
-        GetPawn()->EnableInput(this);
+        PlayerPawn->EnableInput(this);
     }
     else
     {
-        GetPawn()->DisableInput(this);
+        PlayerPawn->DisableInput(this);
     }
     bShowMouseCursor = bPlayerEnabled;
+    PlayerPawn->SetActorTickEnabled(bPlayerEnabled);
 }
