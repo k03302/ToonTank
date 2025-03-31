@@ -42,4 +42,6 @@ void AToonTanksGameMode::BeginPlay()
             true);
         GetWorldTimerManager().SetTimer(StartTimerHandle, StartGameDelegate, StartDelay, false);
     }
+
+    StartGame();
 }
