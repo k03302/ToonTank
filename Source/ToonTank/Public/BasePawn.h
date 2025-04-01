@@ -32,6 +32,8 @@ public:
 
     virtual void HandleDestruction();
 
+    inline bool IsDead() const { return bIsDead; }
+
 private:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Base Pawn", meta = (AllowPrivateAccess = true))
     class UCapsuleComponent *CapsuleComponent;
@@ -47,4 +49,6 @@ private:
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Base Pawn", meta = (AllowPrivateAccess = true))
     USceneComponent *ProjectileSpawnPoint;
+
+    bool bIsDead = false;
 };

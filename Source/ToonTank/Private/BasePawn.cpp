@@ -60,6 +60,23 @@ void ABasePawn::Shoot()
 
 void ABasePawn::HandleDestruction()
 {
+    bIsDead = true;
+
     SetActorHiddenInGame(true);
     SetActorTickEnabled(false);
+
+    if (CapsuleComponent)
+    {
+        CapsuleComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+    }
+
+    if (BaseMesh)
+    {
+        BaseMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+    }
+
+    if (TurretMesh)
+    {
+        TurretMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+    }
 }
