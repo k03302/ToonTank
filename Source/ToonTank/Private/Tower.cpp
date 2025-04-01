@@ -21,7 +21,7 @@ void ATower::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
 
-    if (TargetInRange() && TargetVisible())
+    if (!Tank->IsDead() && TargetInRange() && TargetVisible())
     {
         LookAt(Tank->GetActorLocation());
         CheckShootCondition();
